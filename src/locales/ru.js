@@ -5,7 +5,7 @@ export default {
     required: 'Не должно быть пустым',
     success: 'RSS успешно загружен',
     networkError: 'Ошибка сети',
-    rssError: 'Ресурс не содержит валидный RSS',
+    rssError: 'Ресурc не содержит валидный RSS',
     posts: 'Посты',
     postsButton: 'Просмотр',
     feeds: 'Фиды',
