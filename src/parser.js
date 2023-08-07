@@ -1,36 +1,36 @@
-const parseToHTML = (data) => {
-  const parser = new DOMParser();
-  const parsedData = parser.parseFromString(data, 'application/xml');
-  const errorNode = parsedData.querySelector('parsererror');
-  if (errorNode) throw new Error('rssError');
-  return parsedData;
-};
-
-const getFeed = (parsedData) => {
-  const titleEl = parsedData.querySelector('channel title');
-  const title = titleEl.textContent;
-  const descriptionEl = parsedData.querySelector('channel description');
-  const description = descriptionEl.textContent;
-  return { title, description };
-};
-
-const getPosts = (parsedData) => {
-  const items = parsedData.querySelectorAll('item');
-  return [...items].map((item) => {
-    const titleEl = item.querySelector('title');
-    const title = titleEl.textContent;
-    const descriptionEl = item.querySelector('description');
-    const description = descriptionEl.textContent;
-    const linkEl = item.querySelector('link');
-    const link = linkEl.textContent.trim();
-    return { title, description, link };
-  });
-};
-
-export default (data) => {
-  const parsedData = parseToHTML(data);
+const parsePost = (post) => {
+  const link = post.querySelector('link').textContent;
+  const title = post.querySelector('title').textContent;
+  const description = post.querySelector('description').textContent;
+  const date = post.querySelector('pubDate').textContent;
   return {
-    feed: getFeed(parsedData),
-    posts: getPosts(parsedData),
+    link,
+    title,
+    description,
+    date,
   };
 };
+
+const parse = (rss, url) => {
+  const parser = new DOMParser();
+  const data = parser.parseFromString(rss, 'text/xml');
+  const parseError = data.querySelector('parsererror');
+  if (parseError) {
+    const error = new Error(parseError.textContent);
+    error.isParsingError = true;
+    throw error;
+  }
+
+  const feedTitle = data.querySelector('title').textContent;
+  const feedDescription = data.querySelector('description').textContent;
+  const feed = {
+    link: url,
+    title: feedTitle,
+    description: feedDescription,
+  };
+
+  const posts = [...data.querySelectorAll('item')].map(parsePost);
+  return { feed, posts };
+};
+
+export default parse;
