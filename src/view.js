@@ -5,12 +5,12 @@ export default (state, i18nInstance) => {
     form: document.querySelector('form.rss-form'),
     input: document.querySelector('#url-input'),
     button: document.querySelector('#url-submit-button'),
-    outputText: document.querySelector('.feedback'),
+    feedback: document.querySelector('.feedback'),
     posts: document.querySelector('.posts'),
     feeds: document.querySelector('.feeds'),
     modalTitle: document.querySelector('.modal-title'),
     modalBody: document.querySelector('.modal-body'),
-    modalLink: document.querySelector('.modal a'),
+    modalLink: document.querySelector('.full-article'),
   };
 
   const renderPosts = () => {
@@ -96,13 +96,13 @@ export default (state, i18nInstance) => {
         elements.input.focus();
         elements.input.classList.add('is-invalid');
         elements.button.classList.remove('disabled');
-        elements.outputText.textContent = i18nInstance.t(watchedState.error);
-        elements.outputText.classList.remove('text-success');
-        elements.outputText.classList.add('text-danger');
+        elements.feedback.textContent = i18nInstance.t(watchedState.error);
+        elements.feedback.classList.remove('text-success');
+        elements.feedback.classList.add('text-danger');
         watchedState.state = 'rendered';
       }
       if (value === 'loading') {
-        elements.outputText.textContent = '';
+        elements.feedback.textContent = '';
         elements.button.classList.add('disabled');
         watchedState.error = '';
         watchedState.state = 'rendered';
@@ -112,9 +112,9 @@ export default (state, i18nInstance) => {
         elements.input.focus();
         elements.input.classList.remove('is-invalid');
         elements.button.classList.remove('disabled');
-        elements.outputText.textContent = i18nInstance.t('success');
-        elements.outputText.classList.remove('text-danger');
-        elements.outputText.classList.add('text-success');
+        elements.feedback.textContent = i18nInstance.t('success');
+        elements.feedback.classList.remove('text-danger');
+        elements.feedback.classList.add('text-success');
         elements.posts.innerHTML = '';
         elements.feeds.innerHTML = '';
         renderPosts(watchedState, elements);
