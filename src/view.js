@@ -77,18 +77,22 @@ const createList = (itemsType, state, i18next) => {
   return card;
 };
 
-const renderInvalid = ({ submit, urlInput, feedback, input }) => {
+const renderInvalid = ({
+  submit, urlInput, feedback,
+}) => {
   submit.disabled = false;
-  input.disabled = false;
+  urlInput.disabled = false;
   urlInput.classList.add('is-invalid');
   feedback.classList.remove('text-success');
   feedback.classList.remove('text-warning');
   feedback.classList.add('text-danger');
 };
 
-const renderSending = ({ submit, urlInput, feedback, input }, i18next) => {
+const renderSending = ({
+  submit, urlInput, feedback,
+}, i18next) => {
   submit.disabled = true;
-  input.disabled = true;
+  urlInput.disabled = true;
   urlInput.classList.remove('is-invalid');
   feedback.classList.remove('text-danger');
   feedback.classList.remove('text-success');
