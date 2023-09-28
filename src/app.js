@@ -84,7 +84,7 @@ const app = () => {
 
   const elements = {
     form: document.querySelector('.rss-form'),
-    urlInput: document.querySelector('#url-input'),
+    urlInput: document.getElementById('url-input'),
     submit: document.querySelector('[type="submit"]'),
     feedback: document.querySelector('.feedback'),
     postsList: document.querySelector('.posts'),
