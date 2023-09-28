@@ -104,6 +104,7 @@ const renderAdded = ({
   submit, urlInput, feedback, form,
 }, i18next) => {
   submit.disabled = false;
+  urlInput.disabled = false;
   urlInput.classList.remove('is-invalid');
   feedback.classList.remove('text-danger');
   feedback.classList.remove('text-warning');
